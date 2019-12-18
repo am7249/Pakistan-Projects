@@ -28,8 +28,9 @@ import re
 
 
 class Budget:
-    def __init__(self, file_path, name):
+    def __init__(self, file_path, name, flag):
         self.name = name
+        self.remove_stop_words = flag
         self.text = self.read_file(file_path)
         self.tokens = self.tokenize(self.text)
         self.unique_words = set(self.tokens)
@@ -81,10 +82,11 @@ class Budget:
         
         words = [word for word in stripped if word.isalpha()] #keeps only alphanumeric tokens
         
-        stop_words = set(stopwords.words('english')) #removes stop words
-        processed_text = [w for w in words if not w in stop_words]
+        if self.remove_stop_words:
+            stop_words = set(stopwords.words('english')) #removes stop words
+            words = [w for w in words if not w in stop_words]
         
-        return processed_text
+        return words
     
     def stemmer(self, processed_text):
         '''Input: processed text
