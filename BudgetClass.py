@@ -33,7 +33,7 @@ class Budget:
         self.remove_stop_words = flag
         self.text = self.read_file(file_path)
         self.tokens = self.tokenize(self.text)
-        self.unique_words = set(self.tokens)
+        self.unique_words = list(set(self.tokens))
         self.sentence_tokens = self.token_sentences(self.text)
         self.processed_text = self.preprocess(self.tokens)
         self.stemmed_list = self.stemmer(self.processed_text)
